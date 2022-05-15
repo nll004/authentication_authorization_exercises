@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block page_title %} User Profile {% endblock %}
+
+{% block page_content%}
+<h1>Profile Page</h1>
+<div>
+    <h2> Welcome {{user.username}} </h2>
+    <p> Name: {{user.first_name}} {{user.last_name}} </p>
+    <p> Email: {{user.email}} </p>
+    <form action="/users/{{user.username}}/delete" method="POST">
+        <button>Delete User</button>
+    </form>
+    <form action="/logout">
+        <button>Logout</button>
+    </form>
+</div>
+<a href="/users/{{user.username}}/feedback/new" class="btn btn-success">Add Feedback</a>
+<hr>
+<h2>Feedback</h2>
+    {% for feedback in user.feedback %}
+    <p> {{ feedback.title }} </p>
+    <p> {{ feedback.content }} </p>
+    <a href="/feedback/{{feedback.id}}/update" class="btn btn-secondary">Edit</a>
+    <form action="/feedback/{{feedback.id}}/delete" method="POST">
+        <button class="btn btn-danger">Delete</button>
+    </form>
+    {% endfor %}
+
+{% endblock %}
